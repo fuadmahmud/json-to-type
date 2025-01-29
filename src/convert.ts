@@ -1,10 +1,14 @@
 let htmlResult = "";
 let optionValue = "interface";
 let tab = 2;
+let usingArray = true;
+let typeName = "";
 
-export function setupConvert(element: HTMLButtonElement) {
+function setupConvert(element: HTMLButtonElement) {
   const input = document.getElementById("input") as HTMLTextAreaElement;
   const option = document.getElementById("convertType") as HTMLSelectElement;
+  const switchElement = document.getElementById("switch") as HTMLInputElement;
+  const nameElement = document.getElementById("typeName") as HTMLInputElement;
   /**
    * possible type:
    * number
@@ -17,6 +21,7 @@ export function setupConvert(element: HTMLButtonElement) {
   const handleConvert = () => {
     const resElement = document.getElementById("result") as HTMLDivElement;
     const errElement = document.getElementById('error-text') as HTMLParagraphElement;
+    const labelName = `${typeName ? optionValue + ' ' + typeName : optionValue + ' ' + 'Custom'} {<br>`;
     errElement.style.display = 'none';
     htmlResult = "";
     tab = 2;
@@ -30,7 +35,7 @@ export function setupConvert(element: HTMLButtonElement) {
       return;
     }
     if (!Array.isArray(jsonParsed)) {
-      htmlResult += optionValue === 'interface' ? "interface ICustom {<br>" : "type Custom = {<br>";
+      htmlResult += labelName;
     }
 
     cvrt(jsonParsed);
@@ -45,14 +50,24 @@ export function setupConvert(element: HTMLButtonElement) {
     optionValue = option.value;
   }
 
+  const handleSwitch = () => {
+    usingArray = switchElement.checked;
+  }
+
+  const handleChangeName = () => {
+    typeName = nameElement.value;
+  }
+
   element.addEventListener('click', handleConvert);
   option.addEventListener('change', handleChangeSelect);
+  switchElement.addEventListener('change', handleSwitch);
+  nameElement.addEventListener('change', handleChangeName);
 }
 
-export function setupCopy(element: HTMLImageElement) {
+function setupCopy(element: HTMLImageElement) {
   element.addEventListener('click', async () => {
     try {
-      const result = htmlResult.replaceAll("<br>", " \n ").replaceAll("&gt;", ">").replaceAll("&lt;", "<");
+      const result = htmlResult.replaceAll("<br>", "\n").replaceAll("&gt;", ">").replaceAll("&lt;", "<");
       await navigator.clipboard.writeText(result);
     } catch (error) {
       throw new Error(`Error: ${error}`);
@@ -103,4 +118,9 @@ function cvrt(obj: any, child?: boolean) {
   }
 
   return;
+}
+
+export default function init() {
+  setupConvert(document.querySelector<HTMLButtonElement>('#convert')!)
+  setupCopy(document.querySelector<HTMLImageElement>('#copy-icon')!)
 }

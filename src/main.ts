@@ -1,5 +1,5 @@
 import './style.css'
-import { setupConvert, setupCopy } from './convert.ts'
+import init from './convert.ts'
 import copySvg from './copy.svg';
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
@@ -9,6 +9,14 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       <option value="interface">Interface</option>
       <option value="type">Type</option>
     </select>
+    <input placeholder="Type/Interface name (Optional)" id="typeName" />
+    <div class="switch-wrapper">
+      <p>Use Array<T></p>
+      <label class="switch">
+        <input type="checkbox" checked id="switch">
+        <span class="slider round"></span>
+      </label>
+    </div>
     <button id="convert">Convert</button>
     <p id="error-text"></p>
     <div id="result">
@@ -19,5 +27,4 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   </div>
 `
 
-setupConvert(document.querySelector<HTMLButtonElement>('#convert')!)
-setupCopy(document.querySelector<HTMLImageElement>('#copy-icon')!)
+init();
