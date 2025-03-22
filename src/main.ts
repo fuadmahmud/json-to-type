@@ -10,8 +10,9 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       <option value="type">Type</option>
     </select>
     <input placeholder="Type/Interface name (Optional)" id="typeName" />
+    <input placeholder="Type size (Optional)" id="tabSize" type="number" min=2 />
     <div class="switch-wrapper">
-      <p>Use Array<T></p>
+      <p>Use Array&lt;T&gt;</p>
       <label class="switch">
         <input type="checkbox" checked id="switch">
         <span class="slider round"></span>
