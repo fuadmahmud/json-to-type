@@ -1,8 +1,10 @@
-import './style.css'
-import init from './convert.ts'
-import copySvg from './copy.svg';
+import "./style.css";
+import init from "./convert.ts";
+import copySvg from "./copy.svg";
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
+const document = window.document || globalThis.document;
+
+document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div class="wrapper">
     <textarea id="input" placeholder="Paste your JSON here"></textarea>
     <select id="convertType">
@@ -26,6 +28,6 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       <img id="copy-icon" src=${copySvg} alt="copy-icon" height=24 width=24  />
     </div>
   </div>
-`
+`;
 
 init();
