@@ -1,0 +1,7 @@
+{
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "json-to-type",
+	// Set this to today's date
+	"compatibility_date": "2026-03-25",
+	"main": "./src/main.ts"
+}
